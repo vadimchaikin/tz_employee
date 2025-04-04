@@ -1,0 +1,28 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Иван",
+      "email": "ivan@example.com",
+      "age": 30,
+      "position": "Developer",
+      "department": "Development"
+    },
+    {
+      "id": "011f",
+      "name": "1",
+      "email": "11",
+      "age": "1",
+      "position": "1",
+      "department": "1"
+    },
+    {
+      "id": "d0ac",
+      "name": "1",
+      "email": "2",
+      "age": "2",
+      "position": "2",
+      "department": "2"
+    }
+  ]
+}

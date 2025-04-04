@@ -1,0 +1,258 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IT Company Employee API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/employees": {
+      "get": {
+        "summary": "Get a list of employees with optional filtering",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Filter employees by ID"
+            }
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "description": "Filter employees by name"
+            }
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "description": "Filter employees by email"
+            }
+          },
+          {
+            "in": "query",
+            "name": "age",
+            "schema": {
+              "type": "integer",
+              "description": "Filter employees by age"
+            }
+          },
+          {
+            "in": "query",
+            "name": "position",
+            "schema": {
+              "type": "string",
+              "description": "Filter employees by position"
+            }
+          },
+          {
+            "in": "query",
+            "name": "department",
+            "schema": {
+              "type": "string",
+              "description": "Filter employees by department"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new employee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Employee created successfully"
+          }
+        }
+      }
+    },
+    "/employees/{id}": {
+      "get": {
+        "summary": "Get employee by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "ID of the employee to retrieve"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update employee by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "ID of the employee to update"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Employee updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete employee by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "ID of the employee to delete"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Employee deleted successfully"
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique identifier for the employee"
+          },
+          "name": {
+            "type": "string",
+            "description": "Employee's name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Employee's email address"
+          },
+          "age": {
+            "type": "integer",
+            "description": "Employee's age"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Position"
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          }
+        }
+      },
+      "EmployeeInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Employee's name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Employee's email address"
+          },
+          "age": {
+            "type": "integer",
+            "description": "Employee's age"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Position"
+          },
+          "department": {
+            "$ref": "#/components/schemas/Department"
+          }
+        }
+      },
+      "Position": {
+        "type": "string",
+        "enum": [
+          "Developer",
+          "Designer",
+          "Project Manager",
+          "QA Engineer",
+          "System Administrator"
+        ]
+      },
+      "Department": {
+        "type": "string",
+        "enum": [
+          "Development",
+          "Design",
+          "Project Management",
+          "QA",
+          "IT Operations"
+        ]
+      }
+    }
+  }
+}
